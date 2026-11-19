@@ -1,0 +1,58 @@
+<!doctype html>
+<html ng-app="scorekeep">
+  <head>
+    <title>Scorekeep</title>
+    <meta charset="utf-8"/>
+    <script src="vendor/angular.min.js"></script>
+    <script src="vendor/angular-route.min.js"></script>
+    <script src="vendor/angular-resource.min.js"></script>
+    <script src="app/scorekeep.js"></script>
+    <script src="app/routes.js"></script>
+    <script src="app/services.js"></script>
+    <script src="app/session-controller.js"></script>
+    <script src="app/sessions-controller.js"></script>
+    <script src="app/games-controller.js"></script>
+    <script src="app/game-controller.js"></script>
+    <script src="app/user-controller.js"></script>
+    <script src="app/user-collection.js"></script>
+    <script src="app/session-collection.js"></script>
+    <script src="app/game-collection.js"></script>
+    <script src="app/main-controller.js"></script>
+    <link rel="stylesheet" href="vendor/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/scorekeep.css"/>
+    <script>
+    function showhide(div) {
+      if (document.getElementById(div).style.display == 'block') {
+        document.getElementById(div).style.display = 'none';
+      } else {
+        document.getElementById(div).style.display = 'block';
+      }
+    }
+    </script>
+  </head>
+
+  <body>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand"><a href="#/" id="scorekeep-anchor">Scorekeep</a></h3>
+              <nav class="nav nav-masthead">
+                <a class="nav-link" href='#/' onclick="showhide('instructions');return false;">使用说明</a>
+              </nav>
+            </div>
+          </div>
+          <div class="inner cover" id="instructions">
+            <h3 class="cover-heading">使用这个网页应用</h3>
+            <p>用下面的表单创建一个参与者与一个场次。点击<b>创建</b>后，网页会调用本服务的接口创建参与者与场次，并进入场次大厅。若不填写名称，服务端会自动分配一个随机名称。</p>
+            <p>要再加入一个参与者，请在第二个标签页打开本页面，填入大厅中显示的场次编号，点击<b>加入</b>。</p>
+            <p>在场次大厅中填写对局名称，规则选择<b>三子棋</b>，点击<b>创建</b>即可开出一局。打开浏览器开发者工具的网络面板，可以看到网页为保持对局列表最新而发起的请求。</p>
+            <p>两位参与者都点击<b>开始</b>后即可对局。</p>
+          </div>
+          <div ng-view></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

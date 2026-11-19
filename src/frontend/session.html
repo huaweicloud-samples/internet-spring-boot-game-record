@@ -1,0 +1,35 @@
+<div id="session">
+  <div id="user"><h6>{{ user.name }}</h6></div>
+  <div class="session-header">{{ session.name }}</div>
+  <div id="session-id">场次编号：{{ session.id }}</div>
+  <div class="sub-header">创建一局</div>
+  <div id="create-game-form">
+    <form name="create-game">
+      <div><input name="name" ng-model="gamename" placeholder="对局名称" required><br/></div>
+      <div id="rules-select">规则：
+        <select name="rules" ng-model="gamerules">
+          <option ng-repeat="rules in allrules" value="{{ rules.id }}">{{ rules.name }}</option>
+        </select>
+      </div>
+      <div id="create" class="button" ng-click="createGame(gamename, gamerules)">创建</div>
+    </form>
+  </div>
+  <div id="games">
+    <div class="sub-header">对局</div>
+    <div class="session-game" ng-repeat="game in games">
+      <div class="batsu" ng-click="deleteGame($index)">&times; </div>
+      <div class="game-name">{{ game.name }}</div>
+      <div class="startgame-button" ng-click="startGame($index)">开始</div>
+      <div class="game-description">
+        编号：{{ game.id }} <br/>
+        规则：{{ game.rules }}<br/>
+        参与者：{{ game.players }}<br/>
+        开始时间：{{ game.startTime }}<br/>
+        结束时间：{{ game.endTime }} <br/>
+        落子：{{ game.moves }} <br/>
+        局面：{{ game.states }}<br/>
+        <div class="button" ng-click="endGame($index)">结束对局</div>
+      </div>
+    </div>
+  </div>
+</div>

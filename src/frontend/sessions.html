@@ -1,0 +1,19 @@
+<h1>场次</h1>
+<div>
+  <div ng-repeat="session in sessions">
+    <div class="batsu" ng-click="deleteSession($index)">&times; </div>
+    <div class="id">{{ session.id }}</div>
+    <div class="description">
+      {{ session.name }}，归属者 {{ session.owner }}<br/>
+      参与者：<span ng-repeat="player in session.players">{{ player }} </span>
+    </div>
+  </div>
+</div>
+<h2>创建一个场次</h2>
+<div>
+<form name="create-session">
+  场次名称：<input name="name" ng-model="name" required>
+  你的名称：<input name="owner" ng-model="username" required>
+  <button ng-click="createSession()">创建</button>
+</form>
+</div>
