@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.13'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.huaweicloud.scorekeep'
+version = '1.0.0'
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    huaweicloudSdkVersion = '3.1.216'
+    storeClientVersion = '2.54.17'
+}
+
+// 宽表协议客户端的传输层要求 HttpClient5 5.6.x（TlsSocketStrategy 自 5.4.0 引入）
+// 与 HttpCore5 5.4.x；宿主框架的依赖管理默认给的是 5.3.1 / 5.2.5，
+// 不覆盖会在运行期以 ClassNotFoundException 崩在客户端构建阶段。
+ext['httpclient5.version'] = '5.6.4'
+ext['httpcore5.version'] = '5.4.3'
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 宽表存储访问：兼容接口接受该协议客户端，仅需改写连接地址与静态凭据
+    implementation platform("software.amazon.awssdk:bom:${storeClientVersion}")
+    implementation 'software.amazon.awssdk:dynamodb'
+    implementation 'software.amazon.awssdk:dynamodb-enhanced'
+
+    // 消息通知服务客户端
+    implementation "com.huaweicloud.sdk:huaweicloud-sdk-core:${huaweicloudSdkVersion}"
+    implementation "com.huaweicloud.sdk:huaweicloud-sdk-smn:${huaweicloudSdkVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// 静态前端资源并入应用资源目录，随可执行 JAR 一并分发，
+// 由同一进程同时提供页面与接口，前后端同域、无需跨域配置。
+tasks.named('processResources') {
+    from('../frontend') {
+        into 'static'
+    }
+}
+
+bootJar {
+    archiveFileName = 'scorekeep-api.jar'
+}

@@ -1,0 +1,15 @@
+<h1>参与者</h1>
+<div>
+  <div ng-repeat="player in players">
+    <div class="batsu" ng-click="deletePlayer($index)">&times; </div>
+    <div class="id">{{ player.id }}</div>
+    <div class="description">{{ player.name }}</div>
+  </div>
+</div>
+<h2>创建一个参与者</h2>
+<div>
+<form name="create-user">
+  参与者名称：<input name="name" ng-model="username" required>
+  <button ng-click="createPlayer()">创建</button>
+</form>
+</div>

@@ -1,0 +1,15 @@
+<h1>对局</h1>
+<div>
+  <div ng-repeat="game in games">
+    <div class="batsu" ng-click="deleteGame($index)">&times; </div>
+    <div class="id">{{ game.id }}</div>
+    <div class="description">{{ game.name }}</div>
+  </div>
+</div>
+<h2>创建一局</h2>
+<div>
+<form name="create-game">
+  对局名称：<input name="name" ng-model="gamename" required>
+  <button ng-click="createGame()">创建</button>
+</form>
+</div>
